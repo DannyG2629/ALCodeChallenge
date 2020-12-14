@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ALCodeChallenge.Data\ALCodeChallenge.Data.csproj" />
+    <ProjectReference Include="..\ALCodeChallenge.Model\ALCodeChallenge.Model.csproj" />
+  </ItemGroup>
+
 </Project>

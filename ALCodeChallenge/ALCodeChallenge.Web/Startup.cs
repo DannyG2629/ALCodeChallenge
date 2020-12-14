@@ -1,3 +1,8 @@
+using ALCodeChallenge.Data;
+using ALCodeChallenge.Data.DataEntities;
+using ALCodeChallenge.Data.Interfaces;
+using ALCodeChallenge.Logic;
+using ALCodeChallenge.Logic.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,6 +28,15 @@ namespace ALCodeChallenge.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IQuestionLogic, QuestionLogic>();
+            services.AddTransient<IAnswerLogic, AnswerLogic>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
+            services.AddScoped<IQuestionDataContext, QuestionDataContext>();
+            services.AddScoped<IAnswerDataContext, AnswerDataContext>();
+            services.AddScoped<IResponse<Question>, Response<Question>>();
+            services.AddScoped<IResponse<Answer>, Response<Answer>>();
+
             services.AddControllersWithViews();
         }
 
@@ -50,7 +64,7 @@ namespace ALCodeChallenge.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Question}/{action=Index}/{id?}");
             });
         }
     }
