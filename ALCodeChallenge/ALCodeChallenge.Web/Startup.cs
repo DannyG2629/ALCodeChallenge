@@ -5,14 +5,10 @@ using ALCodeChallenge.Logic;
 using ALCodeChallenge.Logic.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace ALCodeChallenge.Web
 {
@@ -37,7 +33,8 @@ namespace ALCodeChallenge.Web
             services.AddScoped<IResponse<Question>, Response<Question>>();
             services.AddScoped<IResponse<Answer>, Response<Answer>>();
 
-            services.AddControllersWithViews();
+            services.AddSpaStaticFiles(configuration: options => { options.RootPath = "wwwroot"; });
+            services.AddControllers();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,24 +44,18 @@ namespace ALCodeChallenge.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
+            
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-            app.UseEndpoints(endpoints =>
+            app.UseSpaStaticFiles();
+            app.UseSpa(configuration: builder =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Question}/{action=Index}/{id?}");
+                if (env.IsDevelopment())
+                {
+                    builder.UseProxyToSpaDevelopmentServer(baseUri: "http://localhost:8080");
+                }
             });
         }
     }
