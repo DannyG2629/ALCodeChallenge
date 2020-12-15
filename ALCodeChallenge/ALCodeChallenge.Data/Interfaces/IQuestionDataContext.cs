@@ -5,6 +5,6 @@ namespace ALCodeChallenge.Data.Interfaces
 {
     public interface IQuestionDataContext
     {
-        Task<string> GetQuestions(long currentUnixTime);
+        Task<string> GetQuestionsAsync(long currentUnixTime);
     }
 }

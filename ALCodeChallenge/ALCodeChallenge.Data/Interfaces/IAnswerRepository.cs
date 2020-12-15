@@ -7,6 +7,6 @@ namespace ALCodeChallenge.Data.Interfaces
 {
     public interface IAnswerRepository
     {
-        Task<IEnumerable<AnswerDetail>> GetAnswerDetailsByQuestionId(int questionId);
+        Task<IEnumerable<AnswerDetail>> GetAnswerDetailsByQuestionIdAsync(int questionId);
     }
 }

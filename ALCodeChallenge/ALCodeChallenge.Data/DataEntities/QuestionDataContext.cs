@@ -5,11 +5,12 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 
+
 namespace ALCodeChallenge.Data.DataEntities
 {
     public class QuestionDataContext : IQuestionDataContext
     {
-        public async Task<string> GetQuestions(long currentUnixTime)
+        public async Task<string> GetQuestionsAsync(long currentUnixTime)
         {
             var requestUri = $"https://api.stackexchange.com/2.2/search/advanced?pagesize=100&todate={currentUnixTime}&order=desc&sort=creation&accepted=True&answers=2&site=stackoverflow&filter=!OUZaoY_XieXF)L4(8wA2VoXCcA6i2UanMWOT_Tu5A59";
 
@@ -26,9 +27,9 @@ namespace ALCodeChallenge.Data.DataEntities
                     return await httpClient.GetStringAsync(requestUri);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return string.Empty;
             }
 
         }

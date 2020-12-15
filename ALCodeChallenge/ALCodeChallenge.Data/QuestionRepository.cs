@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace ALCodeChallenge.Data
 {
     public class QuestionRepository : IQuestionRepository
@@ -18,14 +19,21 @@ namespace ALCodeChallenge.Data
             _dataContext = dataContext;
         }
 
-        public async Task<IEnumerable<QuestionDetail>> GetQuestionDetails()
+        public async Task<IEnumerable<QuestionDetail>> GetQuestionDetailsAsync()
         {            
             var currentUnixTime = DateTimeOffset.Now.ToUnixTimeSeconds();
 
-            var response = await _dataContext.GetQuestions(currentUnixTime);
-            var questionResponse = JsonConvert.DeserializeObject<Response<Question>>(response);
-            
-            return MapToQuestionDetail(questionResponse.items.ToList());
+            try
+            {
+                var response = await _dataContext.GetQuestionsAsync(currentUnixTime);
+                var questionResponse = JsonConvert.DeserializeObject<Response<Question>>(response);
+
+                return MapToQuestionDetail(questionResponse.items.ToList());
+            }
+            catch (Exception)
+            {
+                return new List<QuestionDetail>();
+            }            
         }
 
         private IEnumerable<QuestionDetail> MapToQuestionDetail(IEnumerable<Question> questions)
@@ -33,7 +41,7 @@ namespace ALCodeChallenge.Data
             var questionDetails = new List<QuestionDetail>();
 
             foreach (Question question in questions)
-            {
+            {                
                 questionDetails.Add(new QuestionDetail
                 {
                     AcceptedAnswerId = question.accepted_answer_id,

@@ -17,13 +17,28 @@ namespace ALCodeChallenge.Logic
             _repository = repository;
         }
 
-        public async Task<IEnumerable<AnswerDetail>> GetAnswerDetailsByQuestionId(int questionId)
+        public async Task<IEnumerable<AnswerDetail>> GetAnswerDetailsByQuestionIdAsync(int questionId)
         {
-            var answers = await _repository.GetAnswerDetailsByQuestionId(questionId);
+            var answers = await _repository.GetAnswerDetailsByQuestionIdAsync(questionId);
+            var returnList = answers.ToList();
 
-            RandomizeAnswerOrder(answers.ToList());
+            RemoveAnswersWithWrongQuestionId(returnList, questionId);
 
-            return answers;
+            if (returnList.Count() <= 1) return new List<AnswerDetail>();                             // There needs to be at least 2 answers
+            if (returnList.Count(rl => rl.IsAccepted == true) != 1) return new List<AnswerDetail>();  // There needs to be exactly one accepted answer
+
+            RandomizeAnswerOrder(returnList);
+
+            return returnList;
+        }
+
+        private void RemoveAnswersWithWrongQuestionId(List<AnswerDetail> answerDetails, int questionId)
+        {
+            if (answerDetails.All(qd => qd.QuestionId == questionId)) return;
+
+            var invalidAnswers = answerDetails.Where(qd => qd.QuestionId != questionId).ToList();
+
+            invalidAnswers.ForEach(ia => answerDetails.Remove(ia));
         }
 
         private void RandomizeAnswerOrder(List<AnswerDetail> answers)

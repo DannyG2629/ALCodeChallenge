@@ -3,7 +3,7 @@ namespace ALCodeChallenge.Data.DataEntities
 {
     public class Question
 	{        
-        public int accepted_answer_id { get; set; }
+        public int? accepted_answer_id { get; set; }
 
         public int answer_count { get; set; }
 

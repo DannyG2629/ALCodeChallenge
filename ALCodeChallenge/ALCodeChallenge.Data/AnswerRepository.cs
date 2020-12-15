@@ -2,9 +2,11 @@
 using ALCodeChallenge.Data.Interfaces;
 using ALCodeChallenge.Model;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace ALCodeChallenge.Data
 {
@@ -17,12 +19,20 @@ namespace ALCodeChallenge.Data
             _dataContext = dataContext;
         }
 
-        public async Task<IEnumerable<AnswerDetail>> GetAnswerDetailsByQuestionId(int questionId)
+        public async Task<IEnumerable<AnswerDetail>> GetAnswerDetailsByQuestionIdAsync(int questionId)
         {                        
-            var response = await _dataContext.GetAnswers(questionId);
-            var answerResponse = JsonConvert.DeserializeObject<Response<Answer>>(response);
+            var response = await _dataContext.GetAnswersAsync(questionId);
 
-            return MapToAnswerDetail(answerResponse.items.ToList());
+            try
+            {
+                var answerResponse = JsonConvert.DeserializeObject<Response<Answer>>(response);
+
+                return MapToAnswerDetail(answerResponse.items.ToList());
+            }
+            catch (Exception)
+            {
+                return new List<AnswerDetail>();
+            }            
         }
 
         private IEnumerable<AnswerDetail> MapToAnswerDetail(IEnumerable<Answer> answers)
@@ -30,7 +40,7 @@ namespace ALCodeChallenge.Data
             var answerDetails = new List<AnswerDetail>();
 
             foreach (Answer answer in answers)
-            {
+            {                
                 answerDetails.Add(new AnswerDetail
                 {                    
                     AnswerId = answer.answer_id,

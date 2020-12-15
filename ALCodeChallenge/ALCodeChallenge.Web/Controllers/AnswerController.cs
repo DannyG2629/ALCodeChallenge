@@ -18,9 +18,10 @@ namespace ALCodeChallenge.Web.Controllers
             return View();
         }
 
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public JsonResult GetAnswerDetailsByQuestionId(int questionId)
         {
-            var answers = _answerLogic.GetAnswerDetailsByQuestionId(questionId);
+            var answers = _answerLogic.GetAnswerDetailsByQuestionIdAsync(questionId);
 
             return Json(answers);
         }
