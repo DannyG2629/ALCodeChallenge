@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
+
 namespace ALCodeChallenge.Logic.Test
 {
     public class QuestionDetailTests
@@ -16,7 +17,7 @@ namespace ALCodeChallenge.Logic.Test
                 AnswerCount = 1,
                 AcceptedAnswerId = 1,
                 Body = "Test Body 1",
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.Now.ToShortDateString(),
                 Link = "Test Link 1",
                 QuestionId = 1,                
                 Title = "Test Title 1"
@@ -26,7 +27,7 @@ namespace ALCodeChallenge.Logic.Test
                 AnswerCount = 2,
                 AcceptedAnswerId = null,
                 Body = "Test Body 2",
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.Now.ToShortDateString(),
                 Link = "Test Link 2",
                 QuestionId = 2,
                 Title = "Test Title 2"
@@ -36,7 +37,7 @@ namespace ALCodeChallenge.Logic.Test
                 AnswerCount = 5,
                 AcceptedAnswerId = 4,
                 Body = "Test Body 3",
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.Now.ToShortDateString(),
                 Link = "Test Link 3",
                 QuestionId = 3,
                 Title = "Test Title 3"

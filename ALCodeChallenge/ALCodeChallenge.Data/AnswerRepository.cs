@@ -31,7 +31,7 @@ namespace ALCodeChallenge.Data
             }
             catch (Exception)
             {
-                return new List<AnswerDetail>();
+                return new List<AnswerDetail>();  // TODO: Return or log a meaningful error message on failure
             }            
         }
 

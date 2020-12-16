@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace ALCodeChallenge.Model
 {
     public class QuestionDetail
@@ -10,7 +9,7 @@ namespace ALCodeChallenge.Model
 
         public string Body { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public string CreationDate { get; set; }
 
         public string Link { get; set; }
 

@@ -1,16 +1,17 @@
 <template>
     <div id="app">
-        <Home msg="Hello world!" />
+        <h1 class="text-center mb-5">Recent Stack Overflow Questions and Answers</h1>
+        <Questions />        
     </div>
 </template>
 
 <script>
-    import Home from './components/Home.vue';
+    import Questions from './components/Questions.vue';    
 
     export default {
         name: 'app',
         components: {
-            Home
+            Questions
         }
     };
 </script>

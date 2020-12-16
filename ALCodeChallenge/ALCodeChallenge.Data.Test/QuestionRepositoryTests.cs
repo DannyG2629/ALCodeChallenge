@@ -60,7 +60,7 @@ namespace ALCodeChallenge.Data.Test
 
             Assert.Equal(65297802, questionDetail.AcceptedAnswerId);
             Assert.Equal(2, questionDetail.AnswerCount);
-            Assert.Equal(DateTimeOffset.FromUnixTimeSeconds(1607986912).DateTime, questionDetail.CreationDate);
+            Assert.Equal(DateTimeOffset.FromUnixTimeSeconds(1607986912).DateTime.ToShortDateString(), questionDetail.CreationDate);
             Assert.Equal(65297761, questionDetail.QuestionId);
             Assert.Equal("https://stackoverflow.com/questions/65297761/variable-reference-into-an-html-text-html-type", questionDetail.Link);
             Assert.Equal("Variable reference into an HTML text/html type", questionDetail.Title);

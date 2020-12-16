@@ -32,7 +32,7 @@ namespace ALCodeChallenge.Data
             }
             catch (Exception)
             {
-                return new List<QuestionDetail>();
+                return new List<QuestionDetail>();  // TODO: Return or log a meaningful error message on failure
             }            
         }
 
@@ -47,7 +47,7 @@ namespace ALCodeChallenge.Data
                     AcceptedAnswerId = question.accepted_answer_id,
                     AnswerCount = question.answer_count,
                     Body = question.body,
-                    CreationDate = DateTimeOffset.FromUnixTimeSeconds(question.creation_date).DateTime,
+                    CreationDate = DateTimeOffset.FromUnixTimeSeconds(question.creation_date).DateTime.ToShortDateString(),
                     Link = question.link,
                     QuestionId = question.question_id,
                     Title = question.title

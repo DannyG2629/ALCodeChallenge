@@ -10,6 +10,8 @@ namespace ALCodeChallenge.Logic
 {
     public class AnswerLogic : IAnswerLogic
     {
+        // TODO: Additional logic for tracking the number of requests left could be beneficial
+
         private IAnswerRepository _repository;
 
         public AnswerLogic(IAnswerRepository repository)

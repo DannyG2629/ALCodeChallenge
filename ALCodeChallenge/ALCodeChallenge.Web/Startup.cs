@@ -24,6 +24,7 @@ namespace ALCodeChallenge.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // DI container setup
             services.AddTransient<IQuestionLogic, QuestionLogic>();
             services.AddTransient<IAnswerLogic, AnswerLogic>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
@@ -49,6 +50,7 @@ namespace ALCodeChallenge.Web
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
+            // Points to Vue app when running in development
             app.UseSpaStaticFiles();
             app.UseSpa(configuration: builder =>
             {

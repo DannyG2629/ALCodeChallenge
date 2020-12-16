@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace ALCodeChallenge.Web.Controllers
 {
+    [Route("Question")]
     public class QuestionController : Controller
     {        
         private readonly IQuestionLogic _questionLogic;
@@ -19,7 +20,8 @@ namespace ALCodeChallenge.Web.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
+        [HttpGet("GetQuestionDetails")]
+        [ResponseCache(Duration = 900, Location = ResponseCacheLocation.Any, NoStore = false)]  // Questions are cached for 15 minutes
         public async Task<JsonResult> GetQuestionDetailsAsync()
         {
             var questions = await _questionLogic.GetQuestionDetailsAsync();

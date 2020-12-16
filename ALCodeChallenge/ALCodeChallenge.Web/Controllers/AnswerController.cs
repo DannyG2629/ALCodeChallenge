@@ -1,9 +1,11 @@
 ﻿using ALCodeChallenge.Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 
 namespace ALCodeChallenge.Web.Controllers
 {
+    [Route("Answer")]
     public class AnswerController : Controller
     {
         private readonly IAnswerLogic _answerLogic;
@@ -18,10 +20,10 @@ namespace ALCodeChallenge.Web.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public JsonResult GetAnswerDetailsByQuestionId(int questionId)
+        [HttpGet("GetAnswerDetailsByQuestionId")]  // Answers could be cached if logic for randomizing order was moved client side        
+        public async Task<JsonResult> GetAnswerDetailsByQuestionIdAsync(int questionId)
         {
-            var answers = _answerLogic.GetAnswerDetailsByQuestionIdAsync(questionId);
+            var answers = await _answerLogic.GetAnswerDetailsByQuestionIdAsync(questionId);
 
             return Json(answers);
         }
